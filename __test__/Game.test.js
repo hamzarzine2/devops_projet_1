@@ -21,9 +21,9 @@ describe("Tests for a score calculator in a bowling game with spare and strike",
     givenTurn(0);
     givenScore(10,0);
 
-    whenRoll(score1,score2);
-    whenRoll(1,1)
-    whenRoll(2,2)
+    whenRoll(score1,score2,turn);
+    whenRoll(1,1,turn)
+    whenRoll(2,2,turn)
     
 
     expect(game.score()).toBe(18);
@@ -34,24 +34,38 @@ describe("Tests for a score calculator in a bowling game with spare and strike",
     givenTurn(0);
     givenScore(9,1);
 
-    whenRoll(score1,score2);
-    whenRoll(4,4)
+    whenRoll(score1,score2,turn);
+    whenRoll(4,4,turn)
     
 
     expect(game.score()).toBe(22);
     expect(game.turnPlayed).toBe(2);
-  });  
+  });
 
+  it("throw is a strike after a strike", () => {
+    givenTurn(2);
+    givenScore(10,0);
+
+    whenRoll(score1,score2,turn);
+    whenRoll(10,0,turn);
+    whenRoll(1,1,turn);
+    
+
+    expect(game.score()).toBe(35);
+    expect(game.turnPlayed).toBe(5);
+  });
 
   function givenTurn(t){
     turn=t;
+    game.addFalseRoll(t)
   }
+ 
   function givenScore(s1,s2) {
     score1 = s1;
     score2=s2;
   }
-  function whenRoll(s1,s2) {
-    game.roll(s1,s2);
+  function whenRoll(s1,s2,t) {
+    game.roll(s1,s2,t);
   }
 
 });

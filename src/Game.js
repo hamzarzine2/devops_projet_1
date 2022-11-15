@@ -16,7 +16,6 @@ module.exports = class Game {
 
   score() {
     for(let i = 0 ; i<this.turnPlayed; i+=1){
-      console.log(this.arrayScore[i])
       if(this.isStrike(this.arrayScore[i])){
           this.addStrike(i);
       }
@@ -40,14 +39,25 @@ module.exports = class Game {
   }
 
   addStrike(i){
-    this.scoreTotal+=this.arrayScore[i+1].throw1+this.arrayScore[i+1].throw2;
+    if(this.arrayScore[i+1].throw1===10){
+      this.scoreTotal+=this.arrayScore[i+1].throw1+this.arrayScore[i+2].throw1;
+    }else{
+      this.scoreTotal+=this.arrayScore[i+1].throw1+this.arrayScore[i+1].throw2;
+    }
   }
 
   addSpare(i){
     this.scoreTotal+=this.arrayScore[i+1].throw1
   }
 
-
-
-
+  addFalseRoll(number){
+    for(let i = 0 ; i<number; i+=1){    
+      this.turnPlayed++;
+      this.scoreTurn={
+        throw1:0,
+        throw2:0
+      }
+      this.arrayScore.push(this.scoreTurn);
+    }
+  }
 }
