@@ -1,30 +1,46 @@
 const Game = require("../src/Game");
 
 describe("Tests for a score calculator in a bowling game with spare and strike", () => {
-  const game = new Game();
+  let game; 
+  beforeEach(()=> (game=new Game))
   let turn;
-  let score;
+  let score1;
+  let score2;
 
   it("should update score ", () => {
     givenTurn(0);
-    givenScore(3,2);
+    givenScore(3,0);
 
-    whenRoll(score);
+    whenRoll(score1,score2);
 
-    expect(game.scoreTotal).toBe(5);
+    expect(game.score()).toBe(3);
     expect(game.turnPlayed).toBe(1);
   });
+  
+  it("throw is a strike", () => {
+    givenTurn(0);
+    givenScore(10,0);
 
+    whenRoll(score1,score2);
+    whenRoll(1,1)
+    whenRoll(2,2)
+    
+
+    expect(game.score()).toBe(18);
+    expect(game.turnPlayed).toBe(3);
+  });
+  
 
 
   function givenTurn(t){
     turn=t;
   }
-  function givenScore(s) {
-    score = s;
+  function givenScore(s1,s2) {
+    score1 = s1;
+    score2=s2;
   }
-  function whenRoll(s) {
-    game.roll(score);
+  function whenRoll(s1,s2) {
+    game.roll(s1,s2);
   }
 
 });
