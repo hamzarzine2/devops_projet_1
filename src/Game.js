@@ -18,7 +18,10 @@ module.exports = class Game {
     for(let i = 0 ; i<this.turnPlayed; i+=1){
       console.log(this.arrayScore[i])
       if(this.isStrike(this.arrayScore[i])){
-        this.scoreTotal+=this.arrayScore[i+1].throw1+this.arrayScore[i+1].throw2;
+          this.addStrike(i);
+      }
+      if(this.isSpare(this.arrayScore[i])){
+        this.addSpare(i);
       }
       this.scoreTotal+=this.arrayScore[i].throw1 + this.arrayScore[i].throw2
     }
@@ -29,6 +32,19 @@ module.exports = class Game {
   isStrike(score){
     if(score.throw1===10)return true;
     return false;
+  }
+
+  isSpare(score){
+    if(score.throw1+score.throw2 ===10 && score.throw1 != 10)return true;
+    return false;
+  }
+
+  addStrike(i){
+    this.scoreTotal+=this.arrayScore[i+1].throw1+this.arrayScore[i+1].throw2;
+  }
+
+  addSpare(i){
+    this.scoreTotal+=this.arrayScore[i+1].throw1
   }
 
 

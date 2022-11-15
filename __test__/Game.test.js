@@ -29,7 +29,18 @@ describe("Tests for a score calculator in a bowling game with spare and strike",
     expect(game.score()).toBe(18);
     expect(game.turnPlayed).toBe(3);
   });
-  
+
+  it("throw is a spare", () => {
+    givenTurn(0);
+    givenScore(9,1);
+
+    whenRoll(score1,score2);
+    whenRoll(4,4)
+    
+
+    expect(game.score()).toBe(22);
+    expect(game.turnPlayed).toBe(2);
+  });  
 
 
   function givenTurn(t){
