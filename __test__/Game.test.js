@@ -90,6 +90,22 @@ describe("Tests for a score calculator in a bowling game with spare and strike",
     expect(game.turnPlayed).toBe(10);
   });
 
+  it("should return 20 with each throw equals 1", () => {
+    givenTurn(0);
+    givenScore(1,1);
+
+    for (let index = 0; index < 10; index++) {
+          whenRoll(score1, score2);
+    }
+
+
+    expect(game.score()).toBe(20);
+    expect(game.turnPlayed).toBe(10);
+  });
+
+
+
+
 
   function givenTurn(t) {
     turn = t;
