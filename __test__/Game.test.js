@@ -77,7 +77,18 @@ describe("Tests for a score calculator in a bowling game with spare and strike",
     expect(game.turnPlayed).toBe(10);
   });
 
+  it("should return 150 with a bonus turn after 10 spare", () => {
+    givenTurn(0);
+    givenScore(5,5);
 
+    for (let index = 0; index < 11; index++) {
+          whenRoll(score1, score2);
+    }
+
+
+    expect(game.score()).toBe(150);
+    expect(game.turnPlayed).toBe(10);
+  });
 
 
   function givenTurn(t) {
